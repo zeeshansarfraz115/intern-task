@@ -16,7 +16,7 @@ while True:
     user_choice = user_choice.capitalize()
 
     # Validate input
-    if user_choice != choices:
+    if user_choice not in choices:
         print("Invalid choice! Please enter Rock, Paper, or Scissors.\n")
         continue
 
