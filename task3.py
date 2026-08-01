@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 
-# 1. Create the dataset
+# Create the dataset
 
 data = {
     "Name": [
-        "Ali", "Ahmed", "Sara", "Zain", "Ayesha",
+        "Zeeshan", "Hussam", "Basit", "Zain", "Ayesha",
         "Bilal", "Hina", "Usman", "Fatima", "Hamza",
-        "Ali", "Sara"
+        "Zeeshan", "Basit"
     ],
 
     "Math": [
@@ -40,29 +40,25 @@ df = pd.DataFrame(data)
 print("Original Dataset:")
 print(df)
 
-
-# 2. Save the dataset as a CSV file
+# Save the dataset as a CSV file
 
 df.to_csv("students_marks.csv", index=False)
 
 print("\nCSV file created successfully!")
 
-
-# 3. Load the CSV file
+# Load the CSV file
 
 df = pd.read_csv("students_marks.csv")
 
 print("\nLoaded Dataset:")
 print(df)
 
-
-# 4. Check for missing values
+# Check for missing values
 
 print("\nMissing Values:")
 print(df.isnull().sum())
 
-
-# 5. Handle missing values
+# Handle missing values
 
 subjects = ["Math", "Science", "English", "Computer"]
 
@@ -72,8 +68,7 @@ for subject in subjects:
 print("\nMissing values after cleaning:")
 print(df.isnull().sum())
 
-
-# 6. Find and remove duplicate rows
+# Find and remove duplicate rows
 
 print("\nNumber of duplicate rows:")
 print(df.duplicated().sum())
@@ -83,14 +78,12 @@ df = df.drop_duplicates()
 print("\nDataset after removing duplicates:")
 print(df)
 
-
-# 7. Check and fix invalid marks
+# Check and fix invalid marks
 
 for subject in subjects:
 
     invalid = (df[subject] < 0) | (df[subject] > 100)
 
-    # Only show output if invalid marks are found
     if invalid.any():
         print("\nInvalid marks in", subject)
         print(df.loc[invalid, ["Name", subject]])
@@ -101,16 +94,14 @@ for subject in subjects:
         # Fill invalid marks with subject average
         df[subject] = df[subject].fillna(df[subject].mean())
 
-
-# 8. Calculate average marks for each student
+# Calculate average marks for each student
 
 df["Average"] = df[subjects].mean(axis=1)
 
 print("\nStudent Averages:")
 print(df[["Name", "Average"]])
 
-
-# 9. Find the topper
+# Find the topper
 
 topper = df.loc[df["Average"].idxmax()]
 
@@ -119,7 +110,7 @@ print(topper["Name"])
 print("Average:", round(topper["Average"], 2))
 
 
-# 10. Find the student with the lowest average
+# Find the student with the lowest average
 
 lowest = df.loc[df["Average"].idxmin()]
 
@@ -127,8 +118,7 @@ print("\nStudent Needing Most Help:")
 print(lowest["Name"])
 print("Average:", round(lowest["Average"], 2))
 
-
-# 11. Calculate subject-wise statistics using NumPy
+# Calculate subject-wise statistics using NumPy
 
 print("\nSubject-wise Statistics:")
 
@@ -145,9 +135,7 @@ for subject in subjects:
     print("Median:", round(median, 2))
     print("Standard Deviation:", round(standard_deviation, 2))
 
-
-# 12. Add Pass/Fail column
-
+# Add Pass/Fail column
 # 40 or above = Pass
 # Below 40 = Fail
 
@@ -156,33 +144,27 @@ df["Pass/Fail"] = np.where(
     "Pass",
     "Fail"
 )
-
 print("\nPass/Fail Results:")
 print(df[["Name", "Average", "Pass/Fail"]])
 
-
-# 13. Sort students by average marks
+# Sort students by average marks
 
 df = df.sort_values(
     by="Average",
     ascending=False
 )
-
 print("\nStudents Sorted by Average:")
 print(df[["Name"] + subjects + ["Average", "Pass/Fail"]])
 
-
-# 14. Final Summary
+# Final Summary
 
 total_students = len(df)
-
 passed_students = (df["Pass/Fail"] == "Pass").sum()
-
 failed_students = (df["Pass/Fail"] == "Fail").sum()
 
-print("\n====================================")
+print("\n************************************")
 print("          FINAL SUMMARY")
-print("====================================")
+print("**************************************")
 
 print("Total Students:", total_students)
 print("Students Passed:", passed_students)
